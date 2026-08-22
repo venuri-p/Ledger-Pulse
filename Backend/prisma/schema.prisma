@@ -4,7 +4,6 @@ generator client{
 
 datasource db{
     provider = "postgresql"
-    url = env("DATABASE_URL")
 }
 
 //------------------
@@ -35,13 +34,12 @@ model User {
     email         String     @unique
     passwordHash  String     @map("password_hash")
 
-    createdAt     DateTime   @default(now()) @map(created_at")
+    createdAt     DateTime   @default(now()) @map("created_at")
     updatedAt     DateTime   @updatedAt   @map("updatedAt")
 
 //relationships
 accounts Account[]
 categories    Category[]
-transactions  Transaction[]
 
 @@map("users")
 }
@@ -68,11 +66,7 @@ model Account{
 
     //Foreign key
     userId         String        @map("userId")
-    user           User          @relation(
-        fields: [userId],
-        references: [id],
-        onDelete: Cascade
-    )
+    user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     //relationships
     transactions   Transaction[]
@@ -90,17 +84,14 @@ model Category{
     name          String
     type          TransactionType
 
-    createdAt     DateTime   @default(now()) @map(created_at")
+    createdAt     DateTime   @default(now()) @map("created_at")
 
     //NULL ->  Global category
     //Value -> User-defined category
     userId        String?     @map("user_id")
 
     //foreign key and relationships
-    user          User?     @relation(
-        fields: [userId], 
-        references: [id], 
-        onDelete: Cascade)
+    user          User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     //relationships
     transactions  Transaction[]
@@ -135,11 +126,7 @@ model Transaction{
 
 accountId         String       @map("account_id")
 
-account           Account      @relation(
-    fields: [accountId],
-    references: [id],
-    onDelete: Restrict
-)
+account           Account      @relation(fields: [accountId], references: [id], onDelete: Restrict)
 
 //--------------------------------------
 //Category relationship
@@ -147,11 +134,7 @@ account           Account      @relation(
 
 categoryId        String         @map("category_id")
 
-category          Category      @relation(
-    fields: [categoryId],
-    references: [id],
-    onDelete: Restrict
-)
+category          Category      @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 
 //--------------------------------------
 //Indexes
