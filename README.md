@@ -299,37 +299,7 @@ The Spring Boot backend follows a layered architecture:
                   ┌─────────────┐
                   │ PostgreSQL  │
                   └─────────────┘
-```
 
-### Controller Layer
-
-Handles HTTP requests and exposes REST API endpoints.
-
-### Service Layer
-
-Contains business logic and application rules.
-
-### Repository Layer
-
-Handles database operations using Spring Data JPA.
-
-### Entity Layer
-
-Represents database entities and their relationships.
-
-### DTO Layer
-
-Handles data transfer between the API and clients.
-
-### Exception Layer
-
-Provides centralized exception handling and consistent API error responses.
-
-### Configuration Layer
-
-Contains application-level configuration and security-related configuration.
-
----
 
 ## 🗄️ Database
 
