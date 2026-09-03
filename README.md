@@ -38,6 +38,7 @@ Ledger Pulse is currently under active development.
 * Backend application architecture
 * Database connectivity
 * Initial data models and relationships
+* CI Pipeline
 
 ### In Progress / Planned
 
@@ -51,7 +52,7 @@ Ledger Pulse is currently under active development.
 * Financial dashboard
 * Rule-based financial insights
 * React frontend
-* CI/CD pipeline
+* CD pipeline
 * Testing and deployment
 
 > Features listed under "In Progress / Planned" may change as development continues.
@@ -325,32 +326,6 @@ The database schema will continue to evolve as additional application requiremen
 
 ---
 
-## 🔐 Authentication
-
-Ledger Pulse plans to use **JSON Web Tokens (JWT)** for authentication and authorization.
-
-The planned authentication flow is:
-
-```text
-User
- │
- │ Login
- ▼
-Spring Boot API
- │
- │ Validate Credentials
- ▼
-JWT Token
- │
- │ Authenticated Requests
- ▼
-Protected REST APIs
-```
-
-Protected endpoints will require a valid JWT token.
-
----
-
 ## 🔎 Search & Filtering
 
 A keyword-based transaction search and filtering system is planned.
@@ -413,52 +388,6 @@ This will make it easier to locate specific transactions and analyze spending pa
 * [ ] Deploy backend
 * [ ] Deploy frontend
 * [ ] Configure production database
-
----
-
-## 🧪 Testing
-
-Testing will be introduced throughout the development process.
-
-Planned testing includes:
-
-* Unit testing
-* Integration testing
-* REST API testing
-* Backend service testing
-* Frontend testing
-
----
-
-## 🚀 CI/CD
-
-A CI/CD pipeline is planned using **GitHub Actions**.
-
-Because Ledger Pulse follows a monorepo architecture, the pipeline will eventually handle both frontend and backend components.
-
-```text
-                 Git Push / Pull Request
-                           │
-                           ▼
-                    GitHub Actions
-                           │
-              ┌────────────┴────────────┐
-              │                         │
-              ▼                         ▼
-       Backend Build & Test     Frontend Build & Test
-              │                         │
-              └────────────┬────────────┘
-                           │
-                           ▼
-                       Deployment
-```
-
-The planned pipeline will automate:
-
-* Backend build
-* Frontend build
-* Code quality checks
-* Deployment
 
 ---
 
