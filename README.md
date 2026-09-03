@@ -375,6 +375,7 @@ This will make it easier to locate specific transactions and analyze spending pa
 * [x] Configure database connectivity
 * [x] Establish backend architecture
 * [x] Create initial data models and relationships
+* [x] Configure CI pipeline
 
 ### Phase 2 — Backend Core
 
@@ -406,7 +407,7 @@ This will make it easier to locate specific transactions and analyze spending pa
 
 ### Phase 5 — DevOps & Deployment
 
-* [ ] Configure CI/CD pipeline
+* [ ] Configure CD pipeline
 * [ ] Automate backend build and testing
 * [ ] Automate frontend build and testing
 * [ ] Deploy backend
