@@ -1,5 +1,6 @@
 package com.ledgerpulse.backend.service.impl;
 
+import com.ledgerpulse.backend.dto.request.LoginRequestDto;
 import com.ledgerpulse.backend.dto.request.RegisterRequestDto;
 import com.ledgerpulse.backend.entity.User;
 import com.ledgerpulse.backend.repository.UserRepository;
@@ -27,5 +28,15 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
+    }
+
+    @Override
+    public void loginUser(LoginRequestDto requestDto) {
+        User user = userRepository.findByEmail(requestDto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("password or email is incorrect"));
+
+        if (!passwordEncoder.matches(requestDto.getPassword(), user.getPasswordHash())) {
+            throw new IllegalArgumentException("password or email is incorrect");
+        }
     }
 }
