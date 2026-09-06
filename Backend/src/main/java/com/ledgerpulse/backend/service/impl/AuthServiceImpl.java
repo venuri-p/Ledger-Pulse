@@ -4,6 +4,7 @@ import com.ledgerpulse.backend.dto.request.LoginRequestDto;
 import com.ledgerpulse.backend.dto.request.RegisterRequestDto;
 import com.ledgerpulse.backend.entity.User;
 import com.ledgerpulse.backend.repository.UserRepository;
+import com.ledgerpulse.backend.security.JwtUtil;
 import com.ledgerpulse.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     @Override
     public void registerUser(RegisterRequestDto requestDto) {
@@ -31,12 +33,14 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void loginUser(LoginRequestDto requestDto) {
+    public String loginUser(LoginRequestDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("password or email is incorrect"));
 
         if (!passwordEncoder.matches(requestDto.getPassword(), user.getPasswordHash())) {
             throw new IllegalArgumentException("password or email is incorrect");
         }
+
+        return jwtUtil.generateToken(user.getEmail());
     }
 }

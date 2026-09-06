@@ -2,6 +2,7 @@ package com.ledgerpulse.backend.controller;
 
 import com.ledgerpulse.backend.dto.request.LoginRequestDto;
 import com.ledgerpulse.backend.dto.request.RegisterRequestDto;
+import com.ledgerpulse.backend.dto.response.LoginResponseDto;
 import com.ledgerpulse.backend.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody LoginRequestDto requestDto) {
-        authService.loginUser(requestDto);
-        return ResponseEntity.ok("Login successful");
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto) {
+        String token = authService.loginUser(requestDto);
+        return ResponseEntity.ok(LoginResponseDto.builder().token(token).build());
     }
 }

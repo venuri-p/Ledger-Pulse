@@ -5,5 +5,5 @@ import com.ledgerpulse.backend.dto.request.RegisterRequestDto;
 
 public interface AuthService {
     void registerUser(RegisterRequestDto requestDto);
-    void loginUser(LoginRequestDto requestDto);
+    String loginUser(LoginRequestDto requestDto);
 }
