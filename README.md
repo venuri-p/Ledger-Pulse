@@ -2,7 +2,7 @@
 
 **Ledger Pulse** is a personal finance management application designed to help users track income and expenses, manage budgets, organize transactions, and gain useful insights into their financial habits.
 
-The project is being developed as a **full-stack monorepo application** with a **Spring Boot backend**, **React frontend**, and **PostgreSQL database**.
+The project is being developed as a **full-stack monorepo application** with a **Spring Boot backend**, **React frontend**, and **PostgreSQL database**, with planned **AI-powered financial features**.
 
 > 🚧 **Project Status: Ongoing Development**
 
@@ -20,7 +20,7 @@ Ledger Pulse aims to provide a centralized platform where users can:
 * Track recurring transactions
 * Search and filter transactions
 * View financial information through a dashboard
-* Receive rule-based financial insights
+* Receive AI-powered financial insights
 
 The project is being developed incrementally, starting with the backend architecture and database design before implementing the complete frontend and additional features.
 
@@ -38,7 +38,7 @@ Ledger Pulse is currently under active development.
 * Backend application architecture
 * Database connectivity
 * Initial data models and relationships
-* CI Pipeline
+* CI pipeline using GitHub Actions
 
 ### In Progress / Planned
 
@@ -50,10 +50,13 @@ Ledger Pulse is currently under active development.
 * Recurring transactions
 * Transaction search and filtering
 * Financial dashboard
-* Rule-based financial insights
+* AI Financial Insights
+* AI Financial Assistant
+* AI Transaction Categorization
 * React frontend
 * CD pipeline
-* Testing and deployment
+* Testing
+* Deployment
 
 > Features listed under "In Progress / Planned" may change as development continues.
 
@@ -146,16 +149,21 @@ A financial dashboard is planned to provide an overview of:
 
 ---
 
-### 💡 Financial Insights
+### 🤖 AI-Powered Financial Features
 
-Ledger Pulse will provide **rule-based financial insights** based on users' transaction and spending data.
+Ledger Pulse will incorporate focused AI features to enhance the financial management experience.
 
-Examples may include:
+#### AI Financial Insights
 
-* Identifying unusually high spending
-* Highlighting frequently used categories
-* Detecting budget usage patterns
-* Providing simple spending recommendations
+Analyze spending patterns, budget usage, and month-to-month changes to generate personalized financial insights and recommendations.
+
+#### AI Financial Assistant
+
+Allow users to ask natural-language questions about their financial data and receive contextual answers.
+
+#### AI Transaction Categorization
+
+Automatically suggest appropriate categories for transactions based on their descriptions.
 
 ---
 
@@ -193,12 +201,20 @@ Additional roles may be introduced if required during development.
 
 * PostgreSQL
 
+### AI
+
+* Spring AI
+* OpenAI API
+
 ### Development & Tools
 
 * Git
 * GitHub
 * GitHub Actions
 * Neon PostgreSQL
+* Postman
+
+> AI technologies are planned and will be integrated as development progresses.
 
 ---
 
@@ -222,6 +238,23 @@ Ledger Pulse follows a **monorepo architecture**, where the frontend and backend
 ```
 
 The frontend and backend are logically separated within the same repository while being developed and version-controlled together.
+
+AI services will be integrated through the Spring Boot backend.
+
+```text
+                         Spring Boot
+                              │
+                    ┌─────────┴─────────┐
+                    │                   │
+              Application          Spring AI
+                 Logic                 │
+                    │                  │
+                    │            OpenAI API
+                    │                  │
+                    └────────┬─────────┘
+                             │
+                        AI Features
+```
 
 ---
 
@@ -300,7 +333,7 @@ The Spring Boot backend follows a layered architecture:
                   ┌─────────────┐
                   │ PostgreSQL  │
                   └─────────────┘
-
+```
 
 ## 🗄️ Database
 
@@ -354,8 +387,8 @@ This will make it easier to locate specific transactions and analyze spending pa
 
 ### Phase 2 — Backend Core
 
-* [ ] Implement JWT authentication
-* [ ] Implement user management
+* [x] Implement JWT authentication
+* [x] Implement user management
 * [ ] Implement transaction management
 * [ ] Implement category management
 * [ ] Implement budget management
@@ -372,9 +405,13 @@ This will make it easier to locate specific transactions and analyze spending pa
 * [ ] Implement dashboard
 * [ ] Implement search and filtering
 
-### Phase 4 — Insights & Improvements
+### Phase 4 — AI Features & Improvements
 
-* [ ] Implement rule-based financial insights
+* [ ] Integrate Spring AI
+* [ ] Integrate OpenAI API
+* [ ] Implement AI Financial Insights
+* [ ] Implement AI Financial Assistant
+* [ ] Implement AI Transaction Categorization
 * [ ] Improve validation and error handling
 * [ ] Add comprehensive testing
 * [ ] Improve application security
@@ -391,17 +428,118 @@ This will make it easier to locate specific transactions and analyze spending pa
 
 ---
 
+## 🧪 Testing
+
+Testing will be introduced throughout the development process.
+
+Planned testing includes:
+
+* Unit testing
+* Integration testing
+* REST API testing
+* Backend service testing
+* Frontend testing
+* AI feature testing
+
+---
+
+## 🚀 CI/CD
+
+A CI/CD pipeline is being developed using **GitHub Actions**.
+
+The CI pipeline has been implemented to automatically validate backend changes.
+
+The planned CD pipeline will extend the automation to application deployment.
+
+```text
+                 Git Push / Pull Request
+                           │
+                           ▼
+                    GitHub Actions
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+              ▼                         ▼
+       Backend Build & Test     Frontend Build & Test
+              │                         │
+              └────────────┬────────────┘
+                           │
+                           ▼
+                       Deployment
+```
+
+### Current CI/CD Status
+
+* [x] Backend CI pipeline
+* [ ] Frontend CI pipeline
+* [ ] CD pipeline
+* [ ] Automated deployment
+
+---
+
+## 🌱 Development Workflow
+
+Development follows a feature-based Git workflow.
+
+```text
+Create Feature Branch
+        │
+        ▼
+Develop Feature
+        │
+        ▼
+Commit Changes
+        │
+        ▼
+Push Branch
+        │
+        ▼
+Create Pull Request
+        │
+        ▼
+CI Checks
+        │
+        ▼
+Review & Testing
+        │
+        ▼
+Merge into Main
+```
+
+The workflow will continue to integrate with the CI/CD pipeline as the project develops.
+
+---
+
+## 🎯 Project Goals
+
+The main goals of Ledger Pulse are to:
+
+* Build a practical full-stack financial application
+* Apply software engineering principles to a real-world project
+* Gain hands-on experience with Spring Boot and React
+* Develop and consume REST APIs
+* Work with PostgreSQL and relational database design
+* Implement secure JWT authentication
+* Practice clean and maintainable backend architecture
+* Integrate AI into a practical software application
+* Gain hands-on experience with LLM-based application development
+* Learn CI/CD and deployment practices
+* Build a scalable application through incremental development
+
+---
+
 ## 📌 Current Focus
 
-The current development focus is on establishing the **backend foundation**, including:
+The current development focus is on the **backend core**, including:
 
-* PostgreSQL database design
-* Spring Boot architecture
-* Database connectivity
-* Core data models
-* Backend development
+* User management
+* JWT authentication
+* Transaction management
+* Budget management
+* Category management
+* Recurring transactions
 
-Future development will progressively introduce authentication, core financial functionality, the React frontend, financial insights, and deployment.
+After the core backend functionality is established, development will progress toward the React frontend, AI-powered features, testing, CI/CD, and deployment.
 
 ---
 
