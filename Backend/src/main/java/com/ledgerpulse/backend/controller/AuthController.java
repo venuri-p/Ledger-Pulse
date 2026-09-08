@@ -31,4 +31,16 @@ public class AuthController {
         String token = authService.loginUser(requestDto);
         return ResponseEntity.ok(LoginResponseDto.builder().token(token).build());
     }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@Valid @RequestBody com.ledgerpulse.backend.dto.request.ForgotPasswordRequestDto requestDto) {
+        authService.forgotPassword(requestDto.getEmail());
+        return ResponseEntity.ok("If an account exists for this email, a password reset link has been sent.");
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@Valid @RequestBody com.ledgerpulse.backend.dto.request.ResetPasswordRequestDto requestDto) {
+        authService.resetPassword(requestDto.getToken(), requestDto.getNewPassword());
+        return ResponseEntity.ok("Password has been reset successfully.");
+    }
 }
