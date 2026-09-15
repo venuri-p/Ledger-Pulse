@@ -19,13 +19,13 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserProfileResponseDto getUserProfile(Long userId) {
+    public UserProfileResponseDto getUserProfile(String userId) {
         User user = getUserById(userId);
         return mapToUserProfileResponseDto(user);
     }
 
     @Override
-    public UserProfileResponseDto updateUserProfile(Long userId, UpdateProfileRequestDto request) {
+    public UserProfileResponseDto updateUserProfile(String userId, UpdateProfileRequestDto request) {
         User user = getUserById(userId);
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileResponseDto updateProfilePicture(Long userId, UpdateProfilePictureRequestDto request) {
+    public UserProfileResponseDto updateProfilePicture(String userId, UpdateProfilePictureRequestDto request) {
         User user = getUserById(userId);
         user.setProfilePicUrl(request.getProfilePicUrl());
         
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updatePassword(Long userId, UpdatePasswordRequestDto request) {
+    public void updatePassword(String userId, UpdatePasswordRequestDto request) {
         User user = getUserById(userId);
         
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    private User getUserById(Long userId) {
+    private User getUserById(String userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
     }

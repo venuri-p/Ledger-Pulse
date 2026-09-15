@@ -6,8 +6,8 @@ import com.ledgerpulse.backend.dto.request.UpdateProfileRequestDto;
 import com.ledgerpulse.backend.dto.response.UserProfileResponseDto;
 
 public interface UserService {
-    UserProfileResponseDto getUserProfile(Long userId);
-    UserProfileResponseDto updateUserProfile(Long userId, UpdateProfileRequestDto request);
-    UserProfileResponseDto updateProfilePicture(Long userId, UpdateProfilePictureRequestDto request);
-    void updatePassword(Long userId, UpdatePasswordRequestDto request);
+    UserProfileResponseDto getUserProfile(String userId);
+    UserProfileResponseDto updateUserProfile(String userId, UpdateProfileRequestDto requestDto);
+    UserProfileResponseDto updateProfilePicture(String userId, UpdateProfilePictureRequestDto requestDto);
+    void updatePassword(String userId, UpdatePasswordRequestDto requestDto);
 }

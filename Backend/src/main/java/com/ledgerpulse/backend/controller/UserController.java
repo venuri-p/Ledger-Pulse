@@ -22,30 +22,30 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<UserProfileResponseDto> getProfile() {
-        Long userId = getCurrentUserId();
+        String userId = getCurrentUserId();
         return ResponseEntity.ok(userService.getUserProfile(userId));
     }
 
     @PutMapping
     public ResponseEntity<UserProfileResponseDto> updateProfile(@Valid @RequestBody UpdateProfileRequestDto request) {
-        Long userId = getCurrentUserId();
+        String userId = getCurrentUserId();
         return ResponseEntity.ok(userService.updateUserProfile(userId, request));
     }
 
     @PutMapping("/profile-picture")
     public ResponseEntity<UserProfileResponseDto> updateProfilePicture(@Valid @RequestBody UpdateProfilePictureRequestDto request) {
-        Long userId = getCurrentUserId();
+        String userId = getCurrentUserId();
         return ResponseEntity.ok(userService.updateProfilePicture(userId, request));
     }
 
     @PutMapping("/password")
     public ResponseEntity<String> updatePassword(@Valid @RequestBody UpdatePasswordRequestDto request) {
-        Long userId = getCurrentUserId();
+        String userId = getCurrentUserId();
         userService.updatePassword(userId, request);
         return ResponseEntity.ok("Password updated successfully");
     }
 
-    private Long getCurrentUserId() {
+    private String getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
             CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
