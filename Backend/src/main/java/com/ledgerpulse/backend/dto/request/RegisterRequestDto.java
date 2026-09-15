@@ -24,4 +24,10 @@ public class RegisterRequestDto {
         message = "Password must be at least 8 characters long, contain at least one uppercase letter and one symbol"
     )
     private String password;
+
+    @NotBlank(message = "First name is required" )
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    private String lastName;
 }
