@@ -1,6 +1,6 @@
 package com.ledgerpulse.backend.entity;
 
-import com.ledgerpulse.backend.enums.TransactionType;
+import com.ledgerpulse.backend.enums.CategoryType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,7 +26,7 @@ public class Category {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TransactionType type;
+    private CategoryType type;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

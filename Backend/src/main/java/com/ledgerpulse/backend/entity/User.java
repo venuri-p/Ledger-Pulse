@@ -19,14 +19,23 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
+
+    @Column(name = "profile_pic_url")
+    private String profilePicUrl;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

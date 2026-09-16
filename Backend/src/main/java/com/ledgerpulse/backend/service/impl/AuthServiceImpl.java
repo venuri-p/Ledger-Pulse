@@ -35,6 +35,8 @@ public class AuthServiceImpl implements AuthService {
 
         User user = User.builder()
                 .email(requestDto.getEmail())
+                .firstName(requestDto.getFirstName())
+                .lastName(requestDto.getLastName())
                 .passwordHash(passwordEncoder.encode(requestDto.getPassword()))
                 .build();
 
