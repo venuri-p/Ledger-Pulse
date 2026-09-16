@@ -1,0 +1,51 @@
+CREATE TABLE users (
+    id VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
+    password_hash VARCHAR(255) NOT NULL,
+    profile_pic_url VARCHAR(255),
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    updated_at TIMESTAMP WITHOUT TIME ZONE
+);
+
+CREATE TABLE password_reset_tokens (
+    id BIGSERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL REFERENCES users(id),
+    token VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    expires_at TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    used BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE accounts (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    opening_balance NUMERIC(15, 2) NOT NULL,
+    currency VARCHAR(255) NOT NULL DEFAULT 'LKR',
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    user_id VARCHAR(255) NOT NULL REFERENCES users(id)
+);
+
+CREATE TABLE categories (
+    id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    user_id VARCHAR(255) REFERENCES users(id)
+);
+
+CREATE TABLE transactions (
+    id VARCHAR(255) PRIMARY KEY,
+    amount NUMERIC(15, 2) NOT NULL,
+    type VARCHAR(255) NOT NULL,
+    date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    notes VARCHAR(255),
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    account_id VARCHAR(255) NOT NULL REFERENCES accounts(id),
+    category_id VARCHAR(255) NOT NULL REFERENCES categories(id)
+);
