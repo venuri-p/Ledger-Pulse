@@ -26,9 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public CategoryResponseDto createCategory(String userId, CategoryRequestDto requestDto) {
-        User user = userRepository.findById(userId)
+    public CategoryResponseDto createCategory(String email, CategoryRequestDto requestDto) {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        String userId = user.getId();
 
         if (categoryRepository.existsByNameAndUserId(requestDto.getName(), userId)) {
             throw new IllegalArgumentException("Category with this name already exists for the user");
@@ -40,21 +41,27 @@ public class CategoryServiceImpl implements CategoryService {
                 .user(user)
                 .build();
 
-        Category savedCategory = categoryRepository.save(category);
+        Category savedCategory = categoryRepository.saveAndFlush(category);
         return mapToResponseDto(savedCategory);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryResponseDto> getUserCategories(String userId) {
-        return categoryRepository.findCategoriesAvailableToUser(userId).stream()
+    public List<CategoryResponseDto> getUserCategories(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return categoryRepository.findCategoriesAvailableToUser(user.getId()).stream()
                 .map(this::mapToResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public CategoryResponseDto updateCategory(String userId, String categoryId, CategoryRequestDto requestDto) {
+    public CategoryResponseDto updateCategory(String email, String categoryId, CategoryRequestDto requestDto) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        String userId = user.getId();
+        
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
@@ -76,7 +83,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void deleteCategory(String userId, String categoryId) {
+    public void deleteCategory(String email, String categoryId) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        String userId = user.getId();
+
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 

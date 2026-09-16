@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface CategoryService {
     
-    CategoryResponseDto createCategory(String userId, CategoryRequestDto requestDto);
+    CategoryResponseDto createCategory(String email, CategoryRequestDto requestDto);
     
-    List<CategoryResponseDto> getUserCategories(String userId);
+    List<CategoryResponseDto> getUserCategories(String email);
     
-    CategoryResponseDto updateCategory(String userId, String categoryId, CategoryRequestDto requestDto);
+    CategoryResponseDto updateCategory(String email, String categoryId, CategoryRequestDto requestDto);
     
-    void deleteCategory(String userId, String categoryId);
+    void deleteCategory(String email, String categoryId);
 }
