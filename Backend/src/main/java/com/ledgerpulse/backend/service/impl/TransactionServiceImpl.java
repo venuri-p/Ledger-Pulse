@@ -141,4 +141,38 @@ public class TransactionServiceImpl implements TransactionService {
                 .categoryType(transaction.getCategory().getType())
                 .build();
     }
+    @Override
+    @Transactional(readOnly = true)
+    public List<TransactionResponseDto> filterTransactions(
+            String email, String keyword, com.ledgerpulse.backend.enums.CategoryType type, 
+            String categoryId, java.time.LocalDateTime startDate, java.time.LocalDateTime endDate) {
+        
+        User user = getUser(email);
+
+        org.springframework.data.jpa.domain.Specification<Transaction> spec = 
+            org.springframework.data.jpa.domain.Specification.where(
+                com.ledgerpulse.backend.repository.specification.TransactionSpecification.belongsToUser(user.getId())
+            );
+
+        if (keyword != null && !keyword.isBlank()) {
+            spec = spec.and(com.ledgerpulse.backend.repository.specification.TransactionSpecification.hasKeyword(keyword));
+        }
+        if (type != null) {
+            spec = spec.and(com.ledgerpulse.backend.repository.specification.TransactionSpecification.hasType(type));
+        }
+        if (categoryId != null && !categoryId.isBlank()) {
+            spec = spec.and(com.ledgerpulse.backend.repository.specification.TransactionSpecification.hasCategory(categoryId));
+        }
+        if (startDate != null) {
+            spec = spec.and(com.ledgerpulse.backend.repository.specification.TransactionSpecification.dateAfterOrEqual(startDate));
+        }
+        if (endDate != null) {
+            spec = spec.and(com.ledgerpulse.backend.repository.specification.TransactionSpecification.dateBeforeOrEqual(endDate));
+        }
+
+        List<Transaction> transactions = transactionRepository.findAll(spec);
+        return transactions.stream()
+                .map(this::mapToResponseDto)
+                .collect(Collectors.toList());
+    }
 }

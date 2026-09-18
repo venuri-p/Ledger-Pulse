@@ -30,6 +30,7 @@ public class Transaction {
     private CategoryType type;
 
     @Column(nullable = false)
+    @Builder.Default
     private LocalDateTime date = LocalDateTime.now();
 
     private String notes;

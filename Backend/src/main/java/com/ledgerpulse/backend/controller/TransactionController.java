@@ -10,7 +10,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.ledgerpulse.backend.enums.CategoryType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @RestController
 @RequestMapping("/api/transactions")
@@ -38,9 +42,14 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<List<TransactionResponseDto>> getAllTransactions(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) CategoryType type,
+            @RequestParam(required = false) String categoryId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
             Authentication authentication) {
         String email = authentication.getName();
-        return ResponseEntity.ok(transactionService.getAllTransactions(email));
+        return ResponseEntity.ok(transactionService.filterTransactions(email, keyword, type, categoryId, startDate, endDate));
     }
 
     @PutMapping("/{id}")
