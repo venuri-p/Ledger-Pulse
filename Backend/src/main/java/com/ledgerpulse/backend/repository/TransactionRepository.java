@@ -23,4 +23,5 @@ public interface TransactionRepository
             List<Transaction> findAllByUserId(@Param("userId") String userId);
 
             Optional<Transaction> findByIdAndAccountUserId(String id, String userId);
+            boolean existsByAccountId(String accountId);
 }
