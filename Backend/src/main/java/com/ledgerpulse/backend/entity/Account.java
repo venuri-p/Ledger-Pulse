@@ -34,9 +34,11 @@ public class Account {
     private BigDecimal openingBalance;
 
     @Column(nullable = false)
+    @Builder.Default
     private String currency = "LKR";
 
     @Column(name = "is_active", nullable = false)
+    @Builder.Default
     private Boolean isActive = true;
 
     @CreationTimestamp
