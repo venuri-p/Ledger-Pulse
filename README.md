@@ -32,33 +32,33 @@ Ledger Pulse is currently under active development.
 
 ### Completed
 
-* PostgreSQL database setup
-* Database schema design
-* Spring Boot project setup
-* Backend application architecture
-* Database connectivity
-* Initial data models and relationships
-* CI pipeline using GitHub Actions
+* PostgreSQL database setup & connectivity
+* Database schema design with Flyway migrations
+* Spring Boot project setup & layered architecture
+* JWT-based authentication & authorization (Spring Security)
+* User profile management & password reset via email
+* Account management (multi-account support, account types, balances)
+* Category management (income and expense categories)
+* Transaction management (full CRUD operations)
+* Keyword search and multi-parameter transaction filtering (type, category, date range)
+* OpenAPI / Swagger API documentation
+* Automated CI pipeline using GitHub Actions (Backend test build & Frontend lint/build)
+* React + Vite frontend project initialization
 
-### In Progress / Planned
+### In Progress
 
-* JWT-based authentication
-* User management
-* Transaction management
-* Category management
+* AI Transaction Assistant (Google GenAI / Gemini integration)
+
+### Planned
+
 * Budget management
 * Recurring transactions
-* Transaction search and filtering
-* Financial dashboard
-* AI Financial Insights
-* AI Financial Assistant
-* AI Transaction Categorization
-* React frontend
-* CD pipeline
-* Testing
-* Deployment
+* Financial dashboard & analytics
+* Complete React UI components & views
+* Comprehensive unit & integration testing
+* Automated CD pipeline & deployment
 
-> Features listed under "In Progress / Planned" may change as development continues.
+> Features listed under "Planned" may evolve as development continues.
 
 ---
 
@@ -66,39 +66,43 @@ Ledger Pulse is currently under active development.
 
 ### 🔐 Authentication & User Management
 
-Planned authentication functionality includes:
+* User registration and login
+* JWT-based stateless authentication & role security
+* Password reset via email with expiring security tokens
+* User profile management (profile info, profile picture, password update)
 
-* User registration
-* User login
-* JWT-based authentication
-* Secure API access
-* Protected endpoints
+---
+
+### 💼 Account Management
+
+Users can organize their finances across multiple accounts:
+
+* Create, view, update, and delete accounts (e.g., Bank, Cash, Savings)
+* Track opening balances and currencies (default LKR)
+* Activate and deactivate accounts
+* Associate transactions directly with specific accounts
 
 ---
 
 ### 💰 Transaction Management
 
-Users will be able to:
+Users can track and manage income and expenditures:
 
-* Create transactions
-* View transactions
-* Update transactions
-* Delete transactions
-* Categorize transactions
-* Track income and expenses
+* Create, view, update, and delete transactions
+* Classify transactions as Income or Expense
+* Associate transactions with accounts and categories
+* Track timestamps, notes, and transaction metadata
 
 ---
 
 ### 🏷️ Category Management
 
-Users will be able to organize transactions using categories.
+Users can organize transactions into structured categories:
 
-Planned functionality includes:
-
-* Create categories
-* Update categories
-* Delete categories
-* Assign categories to transactions
+* Create custom categories per user
+* Categorize by Income or Expense
+* Update and delete categories
+* Assign categories to transactions for reporting and filtering
 
 ---
 
@@ -183,38 +187,38 @@ Additional roles may be introduced if required during development.
 
 ### Backend
 
-* Java
-* Spring Boot
+* Java 21
+* Spring Boot 3
 * Spring Data JPA
+* Spring Security & JWT
+* Flyway Database Migrations
 * REST APIs
-* JWT Authentication
+* SpringDoc OpenAPI (Swagger UI)
 
 ### Frontend
 
 * React.js
 * TypeScript
+* Vite
 * Tailwind CSS
-* HTML
-* CSS
+* HTML / CSS
 
 ### Database
 
 * PostgreSQL
+* Neon PostgreSQL (Cloud)
 
 ### AI
 
-* Spring AI
-* OpenAI API
+* Google GenAI SDK (Gemini API)
+* Spring AI (Planned)
 
 ### Development & Tools
 
-* Git
-* GitHub
-* GitHub Actions
-* Neon PostgreSQL
+* Git & GitHub
+* GitHub Actions (CI)
+* Maven Wrapper
 * Postman
-
-> AI technologies are planned and will be integrated as development progresses.
 
 ---
 
@@ -246,14 +250,12 @@ AI services will be integrated through the Spring Boot backend.
                               │
                     ┌─────────┴─────────┐
                     │                   │
-              Application          Spring AI
-                 Logic                 │
-                    │                  │
-                    │            OpenAI API
-                    │                  │
+              Application          Google GenAI
+                 Logic             (Gemini API)
+                    │                   │
                     └────────┬─────────┘
-                             │
-                        AI Features
+                              │
+                         AI Features
 ```
 
 ---
@@ -346,13 +348,15 @@ A simplified conceptual structure is:
 ```text
                          User
                           │
-             ┌────────────┼────────────┐
-             │            │            │
-             ▼            ▼            ▼
-       Transactions    Budgets    Recurring
-             │                     Transactions
-             ▼
-         Category
+         ┌────────────────┼────────────────┐
+         │                │                │
+         ▼                ▼                ▼
+      Accounts        Categories        Budgets
+         │                │
+         └────────┬───────┘
+                  │
+                  ▼
+             Transactions
 ```
 
 The database schema will continue to evolve as additional application requirements are implemented.
@@ -380,37 +384,40 @@ This will make it easier to locate specific transactions and analyze spending pa
 
 * [x] Initialize Spring Boot project
 * [x] Design PostgreSQL database schema
-* [x] Configure database connectivity
+* [x] Configure database connectivity & Flyway migrations
 * [x] Establish backend architecture
 * [x] Create initial data models and relationships
-* [x] Configure CI pipeline
+* [x] Configure CI pipeline (Backend & Frontend)
 
 ### Phase 2 — Backend Core
 
-* [x] Implement JWT authentication
-* [x] Implement user management
-* [ ] Implement transaction management
-* [ ] Implement category management
+* [x] Implement JWT authentication & authorization
+* [x] Implement user management & profile updates
+* [x] Implement password reset via email
+* [x] Implement account management
+* [x] Implement category management
+* [x] Implement transaction management
+* [x] Implement keyword search and multi-parameter transaction filtering
 * [ ] Implement budget management
 * [ ] Implement recurring transactions
-* [ ] Implement transaction search and filtering
+* [ ] Implement financial dashboard & analytics summary endpoints
 
 ### Phase 3 — Frontend
 
-* [ ] Initialize React application
+* [x] Initialize React + Vite application
 * [ ] Implement authentication UI
+* [ ] Implement account management UI
 * [ ] Implement transaction management UI
 * [ ] Implement category management UI
 * [ ] Implement budget management UI
-* [ ] Implement dashboard
-* [ ] Implement search and filtering
+* [ ] Implement financial dashboard
+* [ ] Implement transaction search and filtering UI
 
 ### Phase 4 — AI Features & Improvements
 
-* [ ] Integrate Spring AI
-* [ ] Integrate OpenAI API
+* [x] Integrate Google GenAI SDK / Gemini API configuration
+* [ ] Implement AI Transaction Assistant
 * [ ] Implement AI Financial Insights
-* [ ] Implement AI Financial Assistant
 * [ ] Implement AI Transaction Categorization
 * [ ] Improve validation and error handling
 * [ ] Add comprehensive testing
@@ -419,9 +426,9 @@ This will make it easier to locate specific transactions and analyze spending pa
 
 ### Phase 5 — DevOps & Deployment
 
+* [x] Automate backend build and testing (CI)
+* [x] Automate frontend lint and build (CI)
 * [ ] Configure CD pipeline
-* [ ] Automate backend build and testing
-* [ ] Automate frontend build and testing
 * [ ] Deploy backend
 * [ ] Deploy frontend
 * [ ] Configure production database
@@ -471,7 +478,7 @@ The planned CD pipeline will extend the automation to application deployment.
 ### Current CI/CD Status
 
 * [x] Backend CI pipeline
-* [ ] Frontend CI pipeline
+* [x] Frontend CI pipeline
 * [ ] CD pipeline
 * [ ] Automated deployment
 
@@ -530,16 +537,11 @@ The main goals of Ledger Pulse are to:
 
 ## 📌 Current Focus
 
-The current development focus is on the **backend core**, including:
+The current development focus is on:
 
-* User management
-* JWT authentication
-* Transaction management
-* Budget management
-* Category management
-* Recurring transactions
-
-After the core backend functionality is established, development will progress toward the React frontend, AI-powered features, testing, CI/CD, and deployment.
+* Implementing the **AI Transaction Assistant** with Google GenAI / Gemini API
+* Developing **Budget Management** and **Recurring Transactions**
+* Designing and building the **React frontend** interface & connecting backend REST APIs
 
 ---
 
